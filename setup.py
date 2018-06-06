@@ -10,11 +10,10 @@ class PostInstallCommand(install):
         import os
         import configparser
         import traceback
-        from pandoctools.shortcut import ShortCutter
-        from pandoctools.cli import pandoctools_user
-        import versioneer
         import io
         import sys
+        from pandoctools.shortcut import ShortCutter
+        from pandoctools.cli import pandoctools_user
 
         DEFAULTS_INI = {'profile': 'Default',
                 'out': '*.*.md',
