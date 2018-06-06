@@ -34,11 +34,14 @@ class PostInstallCommand(install):
             bash_append = ''
 
         # Create shortcuts:
-        sc.create_desktop_shortcut('pandoctools', entry_point=True)
-        ret = sc.create_menu_shortcut('pandoctools', entry_point=True)
+        # sc.create_desktop_shortcut('pandoctools', entry_point=True)
+        # ret = sc.create_menu_shortcut('pandoctools', entry_point=True)
+        sc.create_desktop_shortcut('pandoctools')
+        ret = sc.create_menu_shortcut('pandoctools')
         pandoctools_bin = ret[1]
 
-        sc.makedirs(pandoctools_user, pandoctools_core, _pandoctools_core)
+        # sc.makedirs(pandoctools_user, pandoctools_core, _pandoctools_core)
+        sc.makedirs(pandoctools_user)
         sc.create_desktop_shortcut(pandoctools_user, 'Pandoctools User Data')
         sc.create_shortcut(pandoctools_core, pandoctools_user, 'Pandoctools Core Data')
         sc.create_shortcut(_pandoctools_core, pandoctools_user, 'Pandoctools Core Data' + bash_append)
@@ -74,6 +77,7 @@ class PostInstallCommand(install):
                                               'w', encoding="utf-8"))
         error_log.close()
 
+        # ---------------
         install.run(self)
 
 
