@@ -1,6 +1,6 @@
-from setuptools import setup, find_packages
-from setuptools.command.install import install
+from setuptools import setup
 
+from setuptools.command.install import install
 import os
 import configparser
 import traceback
@@ -80,7 +80,7 @@ class PostInstallCommand(install):
 
 setup(
     name='pandoctools-ready',
-    version=0.1.0,
+    version='0.1.0',
     cmdclass={'install': PostInstallCommand},
 
     description='Shortcuts and user data creation for pandoctools: https://github.com/kiwi0fruit/pandoctools',
@@ -101,8 +101,6 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
-
-    packages=find_packages(exclude=['docs', 'tests']),
 
     install_requires=['pandoctools'],
 )
