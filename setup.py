@@ -1,19 +1,5 @@
 from setuptools import setup
-
 from setuptools.command.install import install
-import os
-import configparser
-import traceback
-from pandoctools.shortcut import ShortCutter
-from pandoctools.cli import pandoctools_user
-import versioneer
-import io
-import sys
-
-DEFAULTS_INI = {'profile': 'Default',
-                'out': '*.*.md',
-                'root_env': '',
-                'win_bash': r'%PROGRAMFILES%\Git\bin\bash.exe'}
 
 
 class PostInstallCommand(install):
@@ -21,6 +7,20 @@ class PostInstallCommand(install):
     Post-installation for installation mode.
     """
     def run(self):
+        import os
+        import configparser
+        import traceback
+        from pandoctools.shortcut import ShortCutter
+        from pandoctools.cli import pandoctools_user
+        import versioneer
+        import io
+        import sys
+
+        DEFAULTS_INI = {'profile': 'Default',
+                'out': '*.*.md',
+                'root_env': '',
+                'win_bash': r'%PROGRAMFILES%\Git\bin\bash.exe'}
+
         error_log = io.StringIO()
         sc = ShortCutter(raise_errors=False, error_log=error_log)
 
