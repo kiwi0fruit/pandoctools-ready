@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 from setuptools.command.install import install
 
 
@@ -34,13 +34,10 @@ class PostInstallCommand(install):
             bash_append = ''
 
         # Create shortcuts:
-        # sc.create_desktop_shortcut('pandoctools', entry_point=True)
-        # ret = sc.create_menu_shortcut('pandoctools', entry_point=True)
         sc.create_desktop_shortcut('pandoctools')
         ret = sc.create_menu_shortcut('pandoctools')
         pandoctools_bin = ret[1]
 
-        # sc.makedirs(pandoctools_user, pandoctools_core, _pandoctools_core)
         sc.makedirs(pandoctools_user)
         sc.create_desktop_shortcut(pandoctools_user, 'Pandoctools User Data')
         sc.create_shortcut(pandoctools_core, pandoctools_user, 'Pandoctools Core Data')
@@ -105,7 +102,5 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
 
-    packages=find_packages(exclude=['docs', 'tests']),
-
-    install_requires=['pandoctools', 'shortcutter'],
+    install_requires=['pandoctools'],
 )
