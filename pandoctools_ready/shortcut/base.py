@@ -15,7 +15,7 @@ class ShortCutter(object):
         s = ShortCutter()
         s.create_desktop_shortcut("python")
         s.create_menu_shortcut("python")
-        
+
     Attributes:
     -----------
     raise_errors : bool, default True
@@ -38,7 +38,7 @@ class ShortCutter(object):
         Works (tested) only on Miniconda.
     """
 
-    def __init__(self, raise_errors=True, error_log=None):
+    def __init__(self, raise_errors=False, error_log=None):
         """
         Creates ShortCutter.
 

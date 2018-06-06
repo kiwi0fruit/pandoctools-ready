@@ -12,7 +12,7 @@ class PostInstallCommand(install):
         import traceback
         import io
         import sys
-        from pandoctools_ready.shortcut import ShortCutter
+        from shortcutter import ShortCutter
         from pandoctools.cli import pandoctools_user
 
         DEFAULTS_INI = {'profile': 'Default',
@@ -107,5 +107,5 @@ setup(
 
     packages=find_packages(exclude=['docs', 'tests']),
 
-    install_requires=['pandoctools'],
+    install_requires=['pandoctools', 'shortcutter'],
 )
