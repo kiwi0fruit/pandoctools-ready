@@ -1,7 +1,6 @@
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
-from os import path as p
 import os
 import configparser
 import traceback
