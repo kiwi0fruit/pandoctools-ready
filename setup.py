@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from setuptools.command.install import install
 
 
@@ -12,7 +12,7 @@ class PostInstallCommand(install):
         import traceback
         import io
         import sys
-        from pandoctools.shortcut import ShortCutter
+        from pandoctools_ready.shortcut import ShortCutter
         from pandoctools.cli import pandoctools_user
 
         DEFAULTS_INI = {'profile': 'Default',
@@ -104,6 +104,8 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
+
+    packages=find_packages(exclude=['docs', 'tests']),
 
     install_requires=['pandoctools'],
 )
