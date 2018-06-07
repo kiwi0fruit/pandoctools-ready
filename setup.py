@@ -26,11 +26,11 @@ class PostInstallCommand(install):
         # Set pandoctools_core:
         if os.name == 'nt':
             pandoctools_core = os.path.join(sc.site_packages, 'pandoctools', 'bat')
-            _pandoctools_core = os.path.join(sc.site_packages, 'pandoctools', 'sh')
+            pandoctools_core2 = os.path.join(sc.site_packages, 'pandoctools', 'sh')
             bash_append = ' (Bash)'
         else:
             pandoctools_core = os.path.join(sc.site_packages, 'pandoctools', 'sh')
-            _pandoctools_core = pandoctools_core
+            pandoctools_core2 = pandoctools_core
             bash_append = ''
 
         # Create shortcuts:
@@ -41,7 +41,7 @@ class PostInstallCommand(install):
         sc.makedirs(pandoctools_user)
         sc.create_desktop_shortcut(pandoctools_user, 'Pandoctools User Data')
         sc.create_shortcut(pandoctools_core, pandoctools_user, 'Pandoctools Core Data')
-        sc.create_shortcut(_pandoctools_core, pandoctools_user, 'Pandoctools Core Data' + bash_append)
+        sc.create_shortcut(pandoctools_core2, pandoctools_user, 'Pandoctools Core Data' + bash_append)
 
         # Write INI:
         config_file = os.path.join(pandoctools_user, 'Defaults.ini')
@@ -56,7 +56,7 @@ class PostInstallCommand(install):
                 pass
         default_sect['pandoctools'] = pandoctools_bin
         if os.path.exists(os.path.expandvars(default_sect['win_bash'])):
-            pandoctools_core = _pandoctools_core
+            pandoctools_core = pandoctools_core2
 
         config['Default'] = default_sect
         with io.StringIO() as file:
@@ -66,12 +66,14 @@ class PostInstallCommand(install):
             with open(config_file, 'w') as file:
                 config.write(file)
         except:
-            print('WARNING: Failed to create ini file.\n\n' + ''.join(traceback.format_exc()), file=error_log)
+            print('WARNING: Failed to create ini file.\n\n' + ''.join(traceback.format_exc()),
+                  file=error_log)
             print('File:\n{}\n\n{}'.format(config_file, config_str), file=error_log)
 
         # Dump error log:
-        print(error_log.getvalue(), file=open(os.path.join(os.path.expanduser('~'), 'pandoctools_install_error_log.txt'),
-                                              'w', encoding="utf-8"))
+        print(error_log.getvalue(),
+              file=open(os.path.join(os.path.expanduser('~'), 'pandoctools_install_error_log.txt'),
+                        'w', encoding="utf-8"))
         error_log.close()
 
         # ---------------
