@@ -21,7 +21,7 @@ class PostInstallCommand(install):
                 'win_bash': r'%PROGRAMFILES%\Git\bin\bash.exe'}
 
         error_log = io.StringIO()
-        sc = ShortCutter(raise_errors=False, error_log=error_log)
+        sc = ShortCutter(raise_errors=False, error_log=error_log, activate=False)
 
         # Set pandoctools_core:
         if os.name == 'nt':
