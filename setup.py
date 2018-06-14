@@ -8,11 +8,13 @@ class PostInstallCommand(install):
     """
     def run(self):
         import os
+        from os import path as p
         import configparser
         import traceback
         import io
         import sys
         from shortcutter import ShortCutter
+        import pandoctools
         from pandoctools.cli import pandoctools_user
 
         DEFAULTS_INI = {'profile': 'Default',
@@ -24,12 +26,13 @@ class PostInstallCommand(install):
         sc = ShortCutter(raise_errors=False, error_log=error_log, activate=False)
 
         # Set pandoctools_core:
+        pandoctools_dir = p.dirname(pandoctools.__file__)
         if os.name == 'nt':
-            pandoctools_core = os.path.join(sc.site_packages, 'pandoctools', 'bat')
-            pandoctools_core2 = os.path.join(sc.site_packages, 'pandoctools', 'sh')
+            pandoctools_core = p.join(pandoctools_dir, 'bat')
+            pandoctools_core2 = p.join(pandoctools_dir, 'sh')
             bash_append = ' (Bash)'
         else:
-            pandoctools_core = os.path.join(sc.site_packages, 'pandoctools', 'sh')
+            pandoctools_core = p.join(pandoctools_dir, 'sh')
             pandoctools_core2 = pandoctools_core
             bash_append = ''
 
@@ -44,10 +47,10 @@ class PostInstallCommand(install):
         sc.create_shortcut(pandoctools_core2, pandoctools_user, 'Pandoctools Core Data' + bash_append)
 
         # Write INI:
-        config_file = os.path.join(pandoctools_user, 'Defaults.ini')
+        config_file = p.join(pandoctools_user, 'Defaults.ini')
         config = configparser.ConfigParser(interpolation=None)
         default_sect = DEFAULTS_INI.copy()
-        if os.path.exists(config_file):
+        if p.exists(config_file):
             config.read(config_file)
             try:
                 d = config.items('Default')
@@ -55,7 +58,7 @@ class PostInstallCommand(install):
             except configparser.NoSectionError:
                 pass
         default_sect['pandoctools'] = pandoctools_bin
-        if os.path.exists(os.path.expandvars(default_sect['win_bash'])):
+        if p.exists(p.expandvars(default_sect['win_bash'])):
             pandoctools_core = pandoctools_core2
 
         config['Default'] = default_sect
@@ -72,7 +75,7 @@ class PostInstallCommand(install):
 
         # Dump error log:
         print(error_log.getvalue(),
-              file=open(os.path.join(os.path.expanduser('~'), 'pandoctools_install_error_log.txt'),
+              file=open(p.join(p.expanduser('~'), 'pandoctools_install_error_log.txt'),
                         'w', encoding="utf-8"))
         error_log.close()
 
