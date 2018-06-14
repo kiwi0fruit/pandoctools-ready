@@ -13,6 +13,7 @@ class PostInstallCommand(install):
         import traceback
         import io
         import sys
+        import inspect
         from shortcutter import ShortCutter
         import pandoctools
         from pandoctools.cli import pandoctools_user
@@ -26,7 +27,7 @@ class PostInstallCommand(install):
         sc = ShortCutter(raise_errors=False, error_log=error_log, activate=False)
 
         # Set pandoctools_core:
-        pandoctools_dir = p.dirname(pandoctools.__file__)
+        pandoctools_dir = p.dirname(inspect.getfile(pandoctools))
         if os.name == 'nt':
             pandoctools_core = p.join(pandoctools_dir, 'bat')
             pandoctools_core2 = p.join(pandoctools_dir, 'sh')
