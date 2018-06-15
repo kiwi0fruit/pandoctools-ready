@@ -1,4 +1,15 @@
+# install twine to conda environment:
 conda install -c defaults -c conda-forge twine
-# go to this folder:
-python setup.py sdist
-twine upload dist/* --skip-existing
+
+# open terminal with activated environment
+# to upload:
+#   run upload__to_clip.bat
+#   paste clipboard to the terminal
+
+
+# hint: easily create shortcut to activated environment via Shortcutter:
+    # windows only preparation:
+    conda install pywin32
+    # cross-platform installation:
+    pip install shortcut
+    shortcut --terminal
