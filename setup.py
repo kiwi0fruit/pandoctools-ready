@@ -19,9 +19,9 @@ class PostInstallCommand(install):
         from pandoctools.cli import pandoctools_user
 
         DEFAULTS_INI = {'profile': 'Default',
-                'out': '*.*.md',
-                'root_env': '',
-                'win_bash': r'%PROGRAMFILES%\Git\bin\bash.exe'}
+                        'out': '*.*.md',
+                        'root_env': '',
+                        'win_bash': r'%PROGRAMFILES%\Git\bin\bash.exe'}
 
         error_log = io.StringIO()
         sc = ShortCutter(raise_errors=False, error_log=error_log, activate=False)
@@ -108,5 +108,5 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
 
-    install_requires=['pandoctools'],
+    install_requires=['shortcutter', 'pandoctools'],
 )
