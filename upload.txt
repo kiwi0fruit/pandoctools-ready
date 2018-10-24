@@ -1,15 +1,18 @@
-# install twine to conda environment:
-conda install -c defaults -c conda-forge twine
+Install to conda environment:
 
-# open terminal with activated environment
-# to upload:
-#   run upload__to_clip.bat
-#   paste clipboard to the terminal
+* twine
+    conda install twine
+
+Scripts:
+
+* open terminal with activated environment
+  * to upload package to pypi drag and drop `upload.bat` to the terminal
 
 
-# hint: easily create shortcut to activated environment via Shortcutter:
-    # windows only preparation:
+Hint: Easily create shortcut to activated environment via Shortcutter:
+
+* Windows only preparation:
     conda install pywin32
-    # cross-platform installation:
+* Cross-platform installation:
     pip install shortcutter
     shortcutter --terminal

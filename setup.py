@@ -28,14 +28,7 @@ class PostInstallCommand(install):
 
         # Set pandoctools_core:
         pandoctools_dir = p.dirname(inspect.getfile(pandoctools))
-        if os.name == 'nt':
-            pandoctools_core = p.join(pandoctools_dir, 'bat')
-            pandoctools_core2 = p.join(pandoctools_dir, 'sh')
-            bash_append = ' (Bash)'
-        else:
-            pandoctools_core = p.join(pandoctools_dir, 'sh')
-            pandoctools_core2 = pandoctools_core
-            bash_append = ''
+        pandoctools_core = p.join(pandoctools_dir, 'sh')
 
         # Create shortcuts:
         sc.create_desktop_shortcut('pandoctools')
@@ -45,7 +38,6 @@ class PostInstallCommand(install):
         sc.makedirs(pandoctools_user)
         sc.create_desktop_shortcut(pandoctools_user, 'Pandoctools User Data')
         sc.create_shortcut(pandoctools_core, pandoctools_user, 'Pandoctools Core Data')
-        sc.create_shortcut(pandoctools_core2, pandoctools_user, 'Pandoctools Core Data' + bash_append)
 
         # Write INI:
         config_file = p.join(pandoctools_user, 'Defaults.ini')
@@ -59,8 +51,6 @@ class PostInstallCommand(install):
             except configparser.NoSectionError:
                 pass
         default_sect['pandoctools'] = pandoctools_bin
-        if p.exists(p.expandvars(default_sect['win_bash'])):
-            pandoctools_core = pandoctools_core2
 
         config['Default'] = default_sect
         with io.StringIO() as file:
@@ -72,7 +62,7 @@ class PostInstallCommand(install):
         except:
             print('WARNING: Failed to create ini file.\n\n' + ''.join(traceback.format_exc()),
                   file=error_log)
-            print('File:\n{}\n\n{}'.format(config_file, config_str), file=error_log)
+            print(f'File:\n{config_file}\n\n{config_str}', file=error_log)
 
         # Dump error log:
         print(error_log.getvalue(),
@@ -86,7 +76,7 @@ class PostInstallCommand(install):
 
 setup(
     name='pandoctools-ready',
-    version='0.1.0',
+    version='0.2.0',
     cmdclass={'install': PostInstallCommand},
 
     description='Shortcuts and user data creation for pandoctools: https://github.com/kiwi0fruit/pandoctools',
@@ -108,5 +98,5 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
 
-    install_requires=['shortcutter', 'pandoctools'],
+    install_requires=['shortcutter>=0.1.7', 'pandoctools>=1.0.0'],
 )
