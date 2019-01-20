@@ -19,6 +19,7 @@ class PostInstallCommand(install):
         from pandoctools.shared_vars import pandoctools_user, pandoctools_core
         from pyppdf.patch_pyppeteer import patch_pyppeteer
         import pyppeteer.command as pyppeteer
+        # import logging
 
         DEFAULTS_INI = {'profile': 'Default',
                         'out': '*.*.md',
@@ -63,7 +64,7 @@ class PostInstallCommand(install):
                   file=error_log)
 
         # Install pyppeteer:
-        pyppeteer.logging.basicConfig(stream=error_log, level=pyppeteer.logging.INFO)
+        pyppeteer.logging.basicConfig(stream=error_log)
         pyppeteer.install()
 
         # Dump error log:
