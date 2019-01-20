@@ -69,7 +69,7 @@ class PostInstallCommand(install):
         # Dump error log:
         error_log = error_log.getvalue().strip()
         if error_log:
-            print(error_log, file=open(p.join(sc.desktop_folder, 'error log pandoctools install.txt'),
+            print(error_log, file=open(p.join(sc.desktop_folder, 'Error Log Pandoctools Install.txt'),
                                        'w', encoding="utf-8"))
 
         # ---------------
