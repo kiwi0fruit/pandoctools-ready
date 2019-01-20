@@ -16,24 +16,22 @@ class PostInstallCommand(install):
         import inspect
         from shortcutter import ShortCutter
         import pandoctools
-        from pandoctools.cli import pandoctools_user
+        from pandoctools.shared_vars import pandoctools_user, pandoctools_core
+        from pyppdf.patch_pyppeteer import patch_pyppeteer
+        from pyppeteer.command import install as install_pyppeteer
 
         DEFAULTS_INI = {'profile': 'Default',
                         'out': '*.*.md',
                         'root_env': '',
                         'win_bash': r'%PROGRAMFILES%\Git\bin\bash.exe'}
 
-        error_log = io.StringIO()
+        # error_log = io.StringIO()
+        error_log = sys.stderr
         sc = ShortCutter(raise_errors=False, error_log=error_log, activate=False)
-
-        # Set pandoctools_core:
-        pandoctools_dir = p.dirname(inspect.getfile(pandoctools))
-        pandoctools_core = p.join(pandoctools_dir, 'sh')
 
         # Create shortcuts:
         sc.create_desktop_shortcut('pandoctools')
-        ret = sc.create_menu_shortcut('pandoctools')
-        pandoctools_bin = ret[1]
+        pandoctools_bin = sc.create_menu_shortcut('pandoctools')[1]
 
         sc.makedirs(pandoctools_user)
         sc.create_desktop_shortcut(pandoctools_user, 'Pandoctools User Data')
@@ -65,10 +63,13 @@ class PostInstallCommand(install):
             print(f'File:\n{config_file}\n\n{config_str}', file=error_log)
 
         # Dump error log:
-        print(error_log.getvalue(),
-              file=open(p.join(p.expanduser('~'), 'pandoctools_install_error_log.txt'),
-                        'w', encoding="utf-8"))
-        error_log.close()
+        # print(error_log.getvalue(),
+        #       file=open(p.join(p.expanduser('~'), 'pandoctools_install_error_log.txt'),
+        #                 'w', encoding="utf-8"))
+        # error_log.close()
+
+        # Install pyppeteer:
+        install_pyppeteer()
 
         # ---------------
         install.run(self)
@@ -76,7 +77,7 @@ class PostInstallCommand(install):
 
 setup(
     name='pandoctools-ready',
-    version='0.2.1',
+    version='0.3.11',
     cmdclass={'install': PostInstallCommand},
 
     description='Shortcuts and user data creation for pandoctools: https://github.com/kiwi0fruit/pandoctools',
@@ -94,9 +95,8 @@ setup(
         'License :: OSI Approved :: MIT License',
 
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
 
-    install_requires=['shortcutter>=0.1.8', 'pandoctools>=1.0.0'],
+    install_requires=['shortcutter>=0.1.8', 'pandoctools>=1.3.11'],
 )
