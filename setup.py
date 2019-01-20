@@ -18,7 +18,7 @@ class PostInstallCommand(install):
         import pandoctools
         from pandoctools.shared_vars import pandoctools_user, pandoctools_core
         from pyppdf.patch_pyppeteer import patch_pyppeteer
-        from pyppeteer.command import install as install_pyppeteer
+        import pyppeteer.command as pyppeteer
 
         DEFAULTS_INI = {'profile': 'Default',
                         'out': '*.*.md',
@@ -57,18 +57,20 @@ class PostInstallCommand(install):
             with open(config_file, 'w') as file:
                 config.write(file)
         except:
-            print('WARNING: Failed to create ini file.\n\n' + ''.join(traceback.format_exc()),
+            print(f'{traceback.format_exc()}\n'+
+                  'WARNING: Failed to create ini file:\n'+
+                  f'{config_file}\n\n{config_str}',
                   file=error_log)
-            print(f'File:\n{config_file}\n\n{config_str}', file=error_log)
-
-        # Dump error log:
-        print(error_log.getvalue(),
-              file=open(p.join(sc.desktop_folder, 'pandoctools_install_error_log.txt'),
-                        'w', encoding="utf-8"))
-        error_log.close()
 
         # Install pyppeteer:
-        install_pyppeteer()
+        pyppeteer.logging.basicConfig(stream=error_log, level=pyppeteer.logging.INFO)
+        pyppeteer.install()
+
+        # Dump error log:
+        error_log = error_log.getvalue().strip()
+        if error_log:
+            print(error_log, file=open(p.join(sc.desktop_folder, 'error_log_pandoctools_install.txt'),
+                                       'w', encoding="utf-8"))
 
         # ---------------
         install.run(self)
