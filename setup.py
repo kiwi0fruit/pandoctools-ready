@@ -25,8 +25,7 @@ class PostInstallCommand(install):
                         'root_env': '',
                         'win_bash': r'%PROGRAMFILES%\Git\bin\bash.exe'}
 
-        # error_log = io.StringIO()
-        error_log = sys.stderr
+        error_log = io.StringIO()
         sc = ShortCutter(raise_errors=False, error_log=error_log, activate=False)
 
         # Create shortcuts:
@@ -63,10 +62,10 @@ class PostInstallCommand(install):
             print(f'File:\n{config_file}\n\n{config_str}', file=error_log)
 
         # Dump error log:
-        # print(error_log.getvalue(),
-        #       file=open(p.join(p.expanduser('~'), 'pandoctools_install_error_log.txt'),
-        #                 'w', encoding="utf-8"))
-        # error_log.close()
+        print(error_log.getvalue(),
+              file=open(p.join(sc.desktop_folder, 'pandoctools_install_error_log.txt'),
+                        'w', encoding="utf-8"))
+        error_log.close()
 
         # Install pyppeteer:
         install_pyppeteer()
