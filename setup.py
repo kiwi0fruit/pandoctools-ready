@@ -64,8 +64,11 @@ class PostInstallCommand(install):
                   file=error_log)
 
         # Install pyppeteer:
-        pyppeteer.logging.basicConfig(stream=error_log)
+        # pyppeteer.logging.basicConfig(stream=error_log)
+        sys_stdout = sys.stdout
+        sys.stdout = error_log
         pyppeteer.install()
+        sys.stdout = sys_stdout
 
         # Dump error log:
         error_log = error_log.getvalue().strip()
