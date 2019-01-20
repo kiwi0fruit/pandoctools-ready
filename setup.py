@@ -18,7 +18,7 @@ class PostInstallCommand(install):
         import pandoctools
         from pandoctools.shared_vars import pandoctools_user, pandoctools_core
         from pyppdf.patch_pyppeteer import patch_pyppeteer
-        from pyppeteer.chromium_downloader import check_chromium, download_chromium
+        from pyppeteer.command import install as install_chromium
 
         DEFAULTS_INI = {'profile': 'Default',
                         'out': '*.*.md',
@@ -62,15 +62,14 @@ class PostInstallCommand(install):
                   f'{config_file}\n\n{config_str}',
                   file=error_log)
 
-        # Install chromium for pyppeteer:
-        if not check_chromium():
-            download_chromium()
-
         # Dump error log:
         error_log = error_log.getvalue().strip()
         if error_log:
             print(error_log, file=open(p.join(sc.desktop_folder, 'Error Log Pandoctools Install.txt'),
                                        'w', encoding="utf-8"))
+
+        # Install chromium for pyppeteer:
+        install_chromium()
 
         # ---------------
         install.run(self)
