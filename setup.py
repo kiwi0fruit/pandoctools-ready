@@ -23,7 +23,7 @@ class PostInstallCommand(install):
         DEFAULTS_INI = {'profile': 'Default',
                         'out': '*.*.md',
                         'root_env': '',
-                        'win_bash': r'%PROGRAMFILES%\Git\bin\bash.exe'}
+                        'win_bash': ''}
 
         error_log = io.StringIO()
         sc = ShortCutter(raise_errors=False, error_log=error_log, activate=False)
