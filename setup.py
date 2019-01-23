@@ -98,5 +98,5 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
 
-    install_requires=['shortcutter>=0.1.8', 'pandoctools>=1.3.11'],
+    install_requires=['shortcutter>=0.1.15', 'pandoctools>=1.3.14'],
 )
