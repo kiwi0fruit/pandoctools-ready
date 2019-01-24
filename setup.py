@@ -22,8 +22,7 @@ class PostInstallCommand(install):
 
         DEFAULTS_INI = {'profile': 'Default',
                         'out': '*.*.md',
-                        'root_env': '',
-                        'win_bash': ''}
+                        'root_env': ''}
 
         error_log = io.StringIO()
         sc = ShortCutter(raise_errors=False, error_log=error_log, activate=False)
@@ -98,5 +97,5 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
 
-    install_requires=['shortcutter>=0.1.15', 'pandoctools>=1.3.15'],
+    install_requires=['shortcutter>=0.1.15', 'pandoctools>=1.3.16'],
 )
