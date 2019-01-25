@@ -76,7 +76,7 @@ class PostInstallCommand(install):
 
 setup(
     name='pandoctools-ready',
-    version='1.4.0',
+    version='1.4.1',
     cmdclass={'install': PostInstallCommand},
 
     description='Shortcuts and user data creation for pandoctools: https://github.com/kiwi0fruit/pandoctools',
@@ -97,5 +97,5 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
 
-    install_requires=['shortcutter>=0.1.15', 'pandoctools>=1.4.0'],
+    install_requires=['shortcutter>=0.1.15', 'pandoctools>=1.4.1'],
 )
